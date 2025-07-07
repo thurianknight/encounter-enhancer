@@ -2,7 +2,7 @@
     "id": "encounter-enhancer",
     "title": "Narrative Encounter Enhancer",
     "description": "Generates enhanced encounter descriptions from basic input, using OpenAI.",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "ThurianKnight",
