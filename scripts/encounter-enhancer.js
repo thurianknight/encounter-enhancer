@@ -23,6 +23,14 @@ Hooks.once("init", () => {
         },
         default: "gpt-3.5-turbo"
     });
+    game.settings.register("encounter-enhancer", "showWelcomeMessage", {
+        name: "Show Welcome Message on World Load",
+        hint: "Show a quick-start guide in the chat log each time the world loads.",
+        scope: "client",
+        config: true,
+        default: true,
+        type: Boolean
+    });
 
     game.settings.register("encounter-enhancer", "promptTemplate", {
         name: "Encounter Prompt Template",
@@ -58,6 +66,30 @@ Hooks.once("init", () => {
         type: String,
         default: "",
         multiline: true
+    });
+
+});
+
+Hooks.once("ready", () => {
+    if (!game.user.isGM) return;
+    // Show welcome message in chat, if enabled
+    const shouldShow = game.settings.get("encounter-enhancer", "showWelcomeMessage");
+    if (!shouldShow) return;
+
+    const content = `
+        <h2>📜 Narrative Encounter Enhancer</h2>
+        <p><strong>Configuration:</strong><br>
+        In <em>Module Settings</em>, you can:
+        <ul>
+        <li>Set your OpenAI API key.</li>
+        <li>Choose which model to use (e.g., <code>gpt-3.5-turbo</code>, <code>gpt-4o-mini</code>).</li>
+        <li>Customize the encounter template, set genre, and optional lore describing your setting.</li>
+        </ul></p>`
+
+    ChatMessage.create({
+        user: game.user.id,
+        whisper: [game.user.id],
+        content: content
     });
 
 });
