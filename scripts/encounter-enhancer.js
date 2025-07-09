@@ -38,7 +38,7 @@ Hooks.once("init", () => {
         scope: "world",
         config: true,
         type: String,
-        default: "Summarize the following RPG encounter scene in 1 to 3 sentences. If the information includes a rolable dice formula such as 1d4, roll the dice and use the result as the number of creatures encountered. Do not mention the actual dice roll. Stay focused and do not add any extra elements: {{encounter}}"
+        default: "Summarize the following RPG encounter scene in 1 to 3 sentences. If the information includes a rollable dice formula such as 1d4, roll the dice and use the result as the number of creatures encountered. Do not mention the actual dice roll. Stay focused and do not add any extra elements: {{encounter}}"
     });
 
     game.settings.register("encounter-enhancer", "genrePreset", {
