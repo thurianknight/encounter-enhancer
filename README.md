@@ -17,7 +17,8 @@ When a GM rolls on a rollable table (e.g., random encounter tables) located in a
 ## 🔧 Features
 
 - 🧠 **AI-enhanced output** using OpenAI's GPT models.
-- ✍️ **Customizable prompt** using a template with `{{encounter}}` placeholder.
+- ✍️ **Customizable prompt** using a template that includes your encounter-table text.
+- 🎲 **Rolls Number Encountered** if your result includes a rollable formula like 1d3, 2d4, etc.
 - 🌍 **World / region context** support to reflect your campaign setting.
 - 🧱 **Genre presets** like Sword & Sorcery, Grimdark, Noblebright, etc.
 - 🧪 Only triggers for tables stored in folders with “encounter” in the name (including nested folders).
