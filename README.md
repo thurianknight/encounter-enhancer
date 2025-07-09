@@ -28,7 +28,7 @@ When a GM rolls on a rollable table (e.g., random encounter tables) located in a
 ## 🚀 Installation
 
 1. Go to **Foundry VTT > Configuration > Add-on Modules > Install Module**.
-2. Paste the following manifest URL: https://github.com/thurianknight/encounter-enhancer/releases/latest/download/module.json
+2. ...OR, paste the following manifest URL: https://github.com/thurianknight/encounter-enhancer/releases/latest/download/module.json
 3. Enable the module in your game.
 
 ---
