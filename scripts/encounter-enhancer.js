@@ -101,8 +101,24 @@ Hooks.on("createChatMessage", async (message, options, userId) => {
     if (!tableId) return;
 
     // Construct full UUID
-    const uuid = `RollTable.${tableId}`;
-    const table = await fromUuid(uuid);
+    // const uuid = `RollTable.${tableId}`;
+    // const table = await fromUuid(uuid);
+
+    let table = game.tables.get(tableId);
+    if (!table) {
+        // Not in world — search all compendia with RollTable documents
+        for (const pack of game.packs) {
+            if (pack.documentName !== "RollTable") continue;
+
+            // Use index for faster ID lookups
+            const index = await pack.getIndex();
+            const match = index.find(e => e._id === tableId);
+            if (match) {
+                table = await pack.getDocument(tableId);
+                break;
+            }
+        }
+    }
 
     if (!table || !(table instanceof RollTable)) {
         console.warn("Encounter Enhancer | Could not resolve RollTable from UUID:", uuid);
