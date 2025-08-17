@@ -95,6 +95,7 @@ Hooks.once("ready", () => {
 });
 
 Hooks.on("createChatMessage", async (message, options, userId) => {
+    if (!game.user.isGM) return;
     const tableId = message?.flags?.core?.RollTable;
     console.log("Encounter Enhancer | Checking message:", message);
     console.log("Encounter Enhancer | table ID:", tableId);
