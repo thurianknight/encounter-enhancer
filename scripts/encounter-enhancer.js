@@ -1,5 +1,5 @@
 Hooks.once("init", () => {
-    console.log("Encounter Enhancer | Initializing module");
+    console.log("[Encounter Enhancer] Initializing module");
 
     game.settings.register("encounter-enhancer", "openaiApiKey", {
         name: "OpenAI API Key",
@@ -97,8 +97,8 @@ Hooks.once("ready", () => {
 Hooks.on("createChatMessage", async (message, options, userId) => {
     if (!game.user.isGM) return;
     const tableId = message?.flags?.core?.RollTable;
-    console.log("Encounter Enhancer | Checking message:", message);
-    console.log("Encounter Enhancer | table ID:", tableId);
+    console.log("[Encounter Enhancer] Checking message:", message);
+    console.log("[Encounter Enhancer] Table ID:", tableId);
     if (!tableId) return;
 
     // Construct full UUID
@@ -122,7 +122,7 @@ Hooks.on("createChatMessage", async (message, options, userId) => {
     }
 
     if (!table || !(table instanceof RollTable)) {
-        console.warn("Encounter Enhancer | Could not resolve RollTable from UUID:", uuid);
+        console.warn("[Encounter Enhancer] Could not resolve RollTable from UUID:", uuid);
         return;
     }
 
@@ -130,7 +130,7 @@ Hooks.on("createChatMessage", async (message, options, userId) => {
     let folder = table.folder;
     let isEncounter = false;
     while (folder) {
-        console.log(`Encounter Enhancer | Folder:`, folder);
+        console.log(`[Encounter Enhancer] Folder:`, folder);
         if (folder.name?.toLowerCase().includes("encounter")) {
             isEncounter = true;
             break;
@@ -140,7 +140,7 @@ Hooks.on("createChatMessage", async (message, options, userId) => {
 
     if (!isEncounter) return;
 
-    console.log("Encounter Enhancer | Detected roll from encounter table");
+    console.log("[Encounter Enhancer] Detected roll from encounter table");
     console.log("→ Table:", table.name);
     console.log("→ Folder:", table.folder?.name);
     console.log("→ Chat content:", message.content);
@@ -165,7 +165,7 @@ Hooks.on("renderChatMessage", async (message, html, data) => {
 
     // Add a click handler
     button.on("click", async () => {
-        console.log("Encounter Enhancer | Enhance Encounter clicked for message", message.id);
+        console.log("[Encounter Enhancer] Enhance Encounter clicked for message", message.id);
         // await enhanceEncounter(message); // <- make sure this function is defined
         const originalText = message.content;
         showEnhanceDialog(originalText, (formData) => {
@@ -190,7 +190,7 @@ async function enhanceEncounter({ encounter, context, tone, notes }) {
     if (tone) prompt += ` Tone: ${tone}.`;
     if (notes) prompt += ` Notes: ${notes.trim()}`;
 
-    console.log("Encounter Enhancer | Sending prompt:", prompt);
+    console.log("[Encounter Enhancer] Sending prompt:", prompt);
 
     // Call OpenAI
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -210,7 +210,7 @@ async function enhanceEncounter({ encounter, context, tone, notes }) {
     });
 
     if (!response.ok) {
-        ui.notifications.error("Encounter Enhancer | OpenAI request failed.");
+        ui.notifications.error("[Encounter Enhancer] OpenAI request failed.");
         return;
     }
 
