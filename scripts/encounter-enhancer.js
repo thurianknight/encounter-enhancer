@@ -26,7 +26,7 @@ Hooks.once("init", () => {
     game.settings.register("encounter-enhancer", "showWelcomeMessage", {
         name: "Show Welcome Message on World Load",
         hint: "Show a quick-start guide in the chat log each time the world loads.",
-        scope: "client",
+        scope: "world",
         config: true,
         default: true,
         type: Boolean
